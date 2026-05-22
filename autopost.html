@@ -534,11 +534,18 @@ section { padding: 5.5rem 2rem; }
    HOW IT WORKS
    ======================== */
 .how { background: var(--surface); }
+.how-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.how-sub { margin-bottom: 2.5rem; }
 .steps {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 2rem;
-  margin-top: 3.5rem;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  margin-top: 0;
 }
 .step {
   display: flex;
@@ -1153,6 +1160,26 @@ footer {
 }
 .upload-zone:hover { border-color: var(--green); color: var(--green-dark); background: var(--green-light); }
 
+.date-time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.date-input {
+  background: var(--surface);
+  border: 1.5px solid var(--rule-2);
+  border-radius: var(--r);
+  padding: 0.6rem 0.75rem;
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  width: 100%;
+  outline: none;
+  min-height: 44px;
+  font-size: 0.875rem;
+}
+.date-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(5,206,120,0.12); }
+
 /* Bottom nav (mobile) */
 .bottom-nav {
   display: none; position: fixed; bottom: 0; left: 0; right: 0;
@@ -1169,41 +1196,267 @@ footer {
 .bn-item.active { color: var(--green-dark); }
 
 /* Responsive */
+/* ─── TABLET 1024px ─────────────────────────────── */
 @media (max-width: 1024px) {
+  .hero-inner { gap: 2.5rem; padding: 4rem 1.5rem 0; }
   .stat-row { grid-template-columns: repeat(2,1fr); }
   .dash-row { grid-template-columns: 1fr; }
   .accounts-grid { grid-template-columns: repeat(3,1fr); }
+  .pricing-grid { gap: 1rem; }
+  .features-grid { grid-template-columns: repeat(2,1fr); }
+  .footer-grid { grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 2rem; }
 }
 
+/* ─── MOBILE 768px ──────────────────────────────── */
 @media (max-width: 768px) {
+
+  /* Navbar */
+  .navbar { padding: 0 1rem; gap: 0; }
   .nav-center { display: none; }
-  .hamburger { display: flex; }
-  section { padding: 3.5rem 1.25rem; }
-  .hero-inner { grid-template-columns: 1fr; padding: 3rem 1.25rem 2rem; }
+  .nav-right .btn-ghost,
+  .nav-right .btn-green { display: none; }
+  .hamburger { display: flex; margin-left: auto; }
+
+  /* Sections */
+  section { padding: 3rem 1.1rem; }
+  .section-heading { font-size: clamp(1.5rem, 6vw, 2rem); }
+  .section-sub { font-size: 0.9rem; }
+
+  /* Hero */
+  .hero { padding-top: 64px; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.1rem 0;
+    gap: 0;
+  }
   .hero-visual { display: none; }
-  .features-grid { grid-template-columns: 1fr 1fr; }
-  .steps { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2,1fr); }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .hero h1 {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .hero-sub {
+    font-size: 0.95rem;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .hero-tag { font-size: 0.72rem; }
+  .hero-ctas {
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+  }
+  .hero-ctas .btn-xl,
+  .hero-ctas .btn-lg {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
+    justify-content: center;
+    border-radius: 10px;
+  }
+  .hero-proof { margin-bottom: 0; }
+
+  /* Proof strip */
+  .proof-strip { padding: 1rem 1.1rem; margin-top: 2rem; }
+  .proof-strip-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1rem;
+    justify-items: start;
+  }
+  .proof-item { font-size: 0.78rem; }
+
+  /* Platforms */
+  .platforms { padding: 2.5rem 1.1rem; }
+  .platform-row { gap: 0.6rem; }
+  .platform-chip { padding: 7px 12px; font-size: 0.78rem; gap: 6px; }
+  .platform-chip span { font-size: 0.9rem; }
+
+  /* Features */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    margin-top: 2rem;
+  }
+  .feature-item { padding: 1.5rem 1.25rem; }
+  .feature-num { font-size: 2rem; margin-bottom: 0.75rem; }
+
+  /* How it works */
+  .how-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .how-sub { margin-bottom: 1.5rem; }
+  .how-text { text-align: center; }
+  .how-text .section-sub { margin: 0 auto 1.5rem; }
+  .how-cta { width: 100%; }
+  .steps { gap: 1.5rem; }
+
+  /* Date-time row in modal */
+  .date-time-row { grid-template-columns: 1fr; }
+
+  /* Stats */
+  .stats { padding: 3rem 1.1rem; }
+  .stats-grid {
+    grid-template-columns: repeat(2,1fr);
+    gap: 1.5rem 1rem;
+  }
+  .stat-num { font-size: clamp(1.75rem, 8vw, 2.5rem); }
+
+  /* Pricing */
+  .pricing-grid { grid-template-columns: 1fr; gap: 1.25rem; margin-top: 2rem; }
+  .pricing-card { padding: 1.5rem; }
+  .pricing-card.featured { transform: none; }
+  .plan-price { font-size: 2.25rem; }
+
+  /* Testimonials */
+  .testimonials-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+
+  /* CTA */
+  .cta-section { padding: 4rem 1.1rem; }
+  .cta-section h2 { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+  .cta-section .btn-xl { width: 100%; }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 1.5rem;
+    padding-bottom: 2rem;
+  }
+  .footer-grid > :first-child { grid-column: 1 / -1; }
+  .footer-tagline { max-width: 100%; }
   .footer-bottom { flex-direction: column; gap: 0.4rem; text-align: center; }
-  .auth-wrap { grid-template-columns: 1fr; }
+  footer { padding: 2.5rem 1.1rem 1.5rem; }
+
+  /* Auth */
+  .auth-wrap { grid-template-columns: 1fr; min-height: 100vh; }
   .auth-left { display: none; }
+  .auth-right {
+    padding: 2rem 1.1rem;
+    align-items: flex-start;
+    padding-top: 2.5rem;
+  }
+  .auth-form-wrap { max-width: 100%; width: 100%; }
+
+  /* Dashboard sidebar + nav */
   .sidebar { display: none; }
   .main { margin-left: 0; }
   .bottom-nav { display: flex; }
-  .page-body { padding-bottom: 4.5rem; }
-  .stat-row { grid-template-columns: 1fr 1fr; }
-  .accounts-grid { grid-template-columns: repeat(2,1fr); }
-  .metric-grid { grid-template-columns: 1fr; }
+
+  /* Dashboard topbar */
+  .topbar { padding: 0.75rem 1rem; }
+  .topbar-title { font-size: 0.9rem; }
+
+  /* Dashboard body */
+  .page-body { padding: 1rem 1rem 5.5rem; }
+
+  /* Stat row */
+  .stat-row { grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 1rem; }
+  .stat-card { padding: 1rem; }
+  .sc-val { font-size: 1.5rem; }
+  .stat-card-icon { width: 28px; height: 28px; border-radius: 7px; margin-bottom: 0.75rem; }
+  .stat-card-icon svg { width: 13px; height: 13px; }
+
+  /* Dash row */
+  .dash-row { grid-template-columns: 1fr; gap: 1rem; }
+
+  /* Post list */
+  .post-item { padding: 0.6rem 0.5rem; }
+  .p-text { font-size: 0.78rem; }
+
+  /* Compose box */
+  .compose-box { min-height: 80px; font-size: 0.85rem; }
+  .chip { font-size: 0.68rem; padding: 4px 9px; }
+
+  /* Accounts */
+  .accounts-grid { grid-template-columns: repeat(2,1fr); gap: 0.75rem; }
+  .acc-card { padding: 1.25rem 0.75rem; }
+
+  /* Analytics */
+  .metric-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+  .chart-wrap { padding: 1rem; }
+
+  /* Settings */
+  .stabs { overflow-x: auto; white-space: nowrap; }
+  .sform { max-width: 100%; }
+
+  /* Modal */
+  .modal-bg { align-items: flex-end; padding: 0; }
+  .modal {
+    border-radius: 20px 20px 0 0;
+    max-width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 1.5rem 1.1rem;
+  }
+  .modal-actions { flex-direction: column; gap: 0.5rem; }
+  .modal-actions .btn { width: 100%; justify-content: center; }
 }
 
+/* ─── SMALL PHONES 480px ────────────────────────── */
 @media (max-width: 480px) {
-  .features-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2,1fr); }
-  .hero-ctas .btn-xl { padding: 0.8rem 1.25rem; font-size: 0.9rem; }
+
+  /* Navbar */
+  .navbar { padding: 0 0.85rem; }
+  .logo-text { font-size: 0.95rem; }
+  .logo-mark { width: 30px; height: 30px; border-radius: 7px; }
+
+  /* Hero */
+  .hero-inner { padding: 2rem 0.85rem 0; }
+  .hero h1 { font-size: clamp(1.85rem, 9.5vw, 2.5rem); }
+  .hero-tag { font-size: 0.7rem; }
+
+  /* Proof strip */
+  .proof-strip-inner { grid-template-columns: 1fr; gap: 0.5rem; }
+  .proof-item { font-size: 0.75rem; }
+
+  /* Sections */
+  section { padding: 2.5rem 0.85rem; }
+  .container { padding-inline: 0; }
+
+  /* Platforms */
+  .platforms { padding: 2rem 0.85rem; }
+  .platform-row { gap: 0.5rem; justify-content: flex-start; }
+  .platform-chip { padding: 6px 10px; font-size: 0.75rem; }
+
+  /* Features */
+  .feature-item { padding: 1.25rem 1rem; }
+
+  /* Stats */
+  .stats { padding: 2.5rem 0.85rem; }
+  .stat-num { font-size: clamp(1.6rem, 9vw, 2.25rem); }
+  .stat-desc { font-size: 0.78rem; }
+
+  /* Pricing */
+  .pricing-card { padding: 1.25rem; }
+  .plan-price { font-size: 2rem; }
+  .plan-features li { font-size: 0.82rem; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-grid > :first-child { grid-column: auto; }
+  footer { padding: 2rem 0.85rem 1.25rem; }
+
+  /* Dashboard */
+  .page-body { padding: 0.85rem 0.85rem 5.5rem; }
+  .stat-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .sc-val { font-size: 1.35rem; }
+  .sc-label { font-size: 0.68rem; }
+  .sc-trend { font-size: 0.65rem; }
+  .accounts-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .acc-card { padding: 1rem 0.6rem; }
+  .acc-icon { font-size: 1.4rem; }
+  .acc-name { font-size: 0.78rem; }
+
+  /* Bottom nav */
+  .bn-item { font-size: 0.55rem; padding: 0.3rem 0.4rem; }
+  .bn-item svg { width: 16px; height: 16px; }
+
+  /* Auth */
+  .auth-right { padding: 1.75rem 0.85rem; }
+
+  /* Modal */
+  .modal { padding: 1.25rem 0.85rem; }
+
+  /* CTA */
+  .cta-section { padding: 3rem 0.85rem; }
 }
 </style>
 </head>
@@ -1406,14 +1659,14 @@ footer {
   <!-- HOW IT WORKS -->
   <section id="how" class="how">
     <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center">
-        <div>
+      <div class="how-grid">
+        <div class="how-text">
           <div class="section-label">How it works</div>
           <h2 class="section-heading">Up and running<br>in three steps</h2>
-          <p class="section-sub" style="margin-bottom:2.5rem">No lengthy onboarding. No technical setup. Just connect, create, and publish.</p>
-          <button class="btn btn-green btn-lg" onclick="go('auth')">Get started free</button>
+          <p class="section-sub how-sub">No lengthy onboarding. No technical setup. Just connect, create, and publish.</p>
+          <button class="btn btn-green btn-lg how-cta" onclick="go('auth')">Get started free</button>
         </div>
-        <div class="steps" style="grid-template-columns:1fr;gap:1.75rem;margin-top:0">
+        <div class="steps how-steps">
           <div class="step">
             <div class="step-badge">1</div>
             <h3>Connect your accounts</h3>
@@ -1927,9 +2180,9 @@ footer {
         <div class="chip" onclick="this.classList.toggle('on')">🎵 TikTok</div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.5rem">
-      <div class="field"><label>Date</label><input type="date" style="background:var(--surface);border:1.5px solid var(--rule-2);border-radius:var(--r);padding:0.6rem 0.75rem;color:var(--ink);font-family:inherit;width:100%;outline:none"></div>
-      <div class="field"><label>Time</label><input type="time" style="background:var(--surface);border:1.5px solid var(--rule-2);border-radius:var(--r);padding:0.6rem 0.75rem;color:var(--ink);font-family:inherit;width:100%;outline:none"></div>
+    <div class="date-time-row">
+      <div class="field"><label>Date</label><input type="date" class="date-input"></div>
+      <div class="field"><label>Time</label><input type="time" class="date-input"></div>
     </div>
     <div class="upload-zone">Click to add image or video (PNG, JPG, MP4)</div>
     <div class="modal-actions">
