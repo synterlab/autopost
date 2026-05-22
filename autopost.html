@@ -1560,6 +1560,91 @@ footer {
   /* CTA */
   .cta-section { padding: 3rem 0.85rem; }
 }
+
+/* ── HERO MAGIC LINK FORM ── */
+.hero-form-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--rule);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  margin-bottom: 1.5rem;
+  max-width: 420px;
+}
+.hero-form-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  margin-bottom: 0.6rem;
+}
+.hero-email-row {
+  display: flex;
+  gap: 0.5rem;
+}
+.hero-email-row input[type=email] {
+  flex: 1;
+  background: var(--surface);
+  border: 1.5px solid var(--rule-2);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--ink);
+  outline: none;
+  min-height: 44px;
+  transition: border-color 0.15s;
+}
+.hero-email-row input[type=email]:focus { border-color: var(--green); }
+.hero-form-err { font-size: 0.75rem; color: var(--red); margin-top: 0.4rem; min-height: 1rem; }
+.hero-sent-msg {
+  display: none;
+  align-items: center; gap: 0.75rem;
+  background: var(--green-light);
+  border: 1.5px solid var(--green-mid);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 0.85rem; color: var(--green-deep); font-weight: 500;
+}
+.hero-sent-msg svg { flex-shrink: 0; }
+
+/* ── DASHBOARD ENHANCEMENTS ── */
+.dash-welcome {
+  background: linear-gradient(135deg, var(--green-deep) 0%, #023d22 100%);
+  border-radius: var(--r-lg);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.dash-welcome-text h2 { font-weight: 800; font-size: 1.2rem; color: var(--white); letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+.dash-welcome-text p { font-size: 0.82rem; color: rgba(255,255,255,0.65); }
+.dash-welcome-cta { flex-shrink: 0; }
+.activity-list { display: flex; flex-direction: column; gap: 0; }
+.activity-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.82rem; color: var(--ink-2);
+}
+.activity-item:last-child { border-bottom: none; }
+.a-icon { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.85rem; }
+.a-icon.green { background: var(--green-light); }
+.a-icon.yellow { background: #FFF8E1; }
+.a-icon.blue { background: #E3F2FD; }
+.a-text { flex: 1; }
+.a-time { font-size: 0.7rem; color: var(--ink-4); flex-shrink: 0; }
+.platform-perf { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.75rem; margin-top: 1.25rem; }
+.pp-card { background: var(--white); border: 1.5px solid var(--rule); border-radius: var(--r-lg); padding: 1rem; text-align: center; }
+.pp-icon { font-size: 1.3rem; margin-bottom: 0.4rem; }
+.pp-name { font-size: 0.7rem; color: var(--ink-3); font-weight: 500; margin-bottom: 0.2rem; }
+.pp-val { font-weight: 800; font-size: 1rem; color: var(--ink); }
+.pp-trend { font-size: 0.65rem; color: var(--green-dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .platform-perf { grid-template-columns: repeat(2,1fr); }
+  .dash-welcome { flex-direction: column; align-items: flex-start; }
+  .hero-email-row { flex-direction: column; }
+  .hero-form-wrap { max-width: 100%; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
@@ -1613,12 +1698,33 @@ function resetMagicLink() {
   document.getElementById('ml-err').textContent = '';
 }
 
-async function signInWithGoogle() {
-  const { error } = await _sb.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: 'https://autopost.auction' }
+async function sendHeroMagicLink(e) {
+  e.preventDefault();
+  const email = document.getElementById('hero-email').value.trim();
+  const btn = document.getElementById('hero-ml-btn');
+  const errEl = document.getElementById('hero-ml-err');
+  const inner = document.getElementById('hero-ml-inner');
+  errEl.textContent = '';
+  btn.disabled = true;
+  inner.textContent = 'Sending...';
+  const { error } = await _sb.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: 'https://autopost.auction' }
   });
-  if (error) alert(error.message);
+  if (error) {
+    errEl.textContent = error.message;
+    btn.disabled = false;
+    inner.textContent = 'Get started free';
+    return;
+  }
+  document.getElementById('hero-form').style.display = 'none';
+  const sent = document.getElementById('hero-sent');
+  sent.style.display = 'flex';
+}
+
+async function doLogout() {
+  await _sb.auth.signOut();
+  go('landing');
 }
 </script>
 </head>
@@ -1680,8 +1786,23 @@ async function signInWithGoogle() {
         <div class="hero-tag"><span class="hero-tag-dot"></span> Now on 8 platforms</div>
         <h1>Stop posting<br>manually.<br><em>Grow instead.</em></h1>
         <p class="hero-sub">AutoPost plans, schedules, and publishes your content across every platform while you focus on building the work that matters.</p>
-        <div class="hero-ctas">
-          <button class="btn btn-green btn-xl" onclick="go('auth')">Start 7-day free trial</button>
+        <div class="hero-form-wrap">
+          <div class="hero-form-label">Start free — no credit card needed</div>
+          <div id="hero-form">
+            <form class="hero-email-row" onsubmit="sendHeroMagicLink(event)">
+              <input type="email" id="hero-email" placeholder="your@email.com" required autocomplete="email">
+              <button type="submit" class="btn btn-green" id="hero-ml-btn" style="padding:0.65rem 1.1rem;white-space:nowrap">
+                <span id="hero-ml-inner">Get started free</span>
+              </button>
+            </form>
+            <div class="hero-form-err" id="hero-ml-err"></div>
+          </div>
+          <div class="hero-sent-msg" id="hero-sent">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#05CE78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Magic link sent! Check your inbox to sign in.</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-top:-0.5rem">
           <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
         </div>
         <div class="hero-proof">
@@ -2083,11 +2204,7 @@ async function signInWithGoogle() {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </span>
           </button>
-          <div class="or-divider"><span>or continue with</span></div>
-          <button type="button" class="btn-google" onclick="signInWithGoogle()">
-            <svg width="17" height="17" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
-            Continue with Google
-          </button>
+
           <p style="font-size:0.72rem;color:var(--ink-4);text-align:center;margin-top:0.5rem">By continuing you agree to our <a href="#" style="color:var(--ink-3)">Terms</a> &amp; <a href="#" style="color:var(--ink-3)">Privacy Policy</a>.</p>
         </form>
 
@@ -2147,7 +2264,7 @@ async function signInWithGoogle() {
           <div class="u-email" id="d-email">alex@example.com</div>
         </div>
       </div>
-      <button class="btn-logout" onclick="go('landing')">Log out</button>
+      <button class="btn-logout" onclick="doLogout()">Log out</button>
     </div>
   </div>
 
@@ -2162,6 +2279,15 @@ async function signInWithGoogle() {
 
     <!-- HOME -->
     <div id="ds-home" class="page-body dsec" style="display:block">
+      <div class="dash-welcome">
+        <div class="dash-welcome-text">
+          <h2 id="d-welcome-name">Good morning! 👋</h2>
+          <p>Here's what's happening with your content today.</p>
+        </div>
+        <div class="dash-welcome-cta">
+          <button class="btn btn-green" onclick="document.getElementById('m-compose').classList.add('open')">+ New post</button>
+        </div>
+      </div>
       <div class="stat-row">
         <div class="stat-card">
           <div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
@@ -2212,6 +2338,29 @@ async function signInWithGoogle() {
             <div class="chip" onclick="this.classList.toggle('on')">💼 LinkedIn</div>
           </div>
           <button class="btn btn-green btn-full" onclick="document.getElementById('m-compose').classList.add('open')">Schedule post</button>
+        </div>
+      </div>
+
+      <!-- Platform Performance -->
+      <div class="card" style="margin-top:1.25rem">
+        <div class="card-head"><span class="card-title">Performance by platform</span></div>
+        <div class="platform-perf">
+          <div class="pp-card"><div class="pp-icon">📸</div><div class="pp-name">Instagram</div><div class="pp-val">24.3K</div><div class="pp-trend">+18% reach</div></div>
+          <div class="pp-card"><div class="pp-icon">💼</div><div class="pp-name">LinkedIn</div><div class="pp-val">18.1K</div><div class="pp-trend">+12% reach</div></div>
+          <div class="pp-card"><div class="pp-icon">𝕏</div><div class="pp-name">X / Twitter</div><div class="pp-val">12.8K</div><div class="pp-trend">+9% reach</div></div>
+          <div class="pp-card"><div class="pp-icon">▶️</div><div class="pp-name">YouTube</div><div class="pp-val">8.4K</div><div class="pp-trend">+31% reach</div></div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card" style="margin-top:1.25rem">
+        <div class="card-head"><span class="card-title">Recent activity</span></div>
+        <div class="activity-list">
+          <div class="activity-item"><div class="a-icon green">✓</div><div class="a-text"><strong>Post published</strong> — "Behind the scenes shoot" on Instagram</div><div class="a-time">2h ago</div></div>
+          <div class="activity-item"><div class="a-icon yellow">⏰</div><div class="a-text"><strong>Post scheduled</strong> — "5 lessons from 0 to 10K" for tomorrow 9AM</div><div class="a-time">4h ago</div></div>
+          <div class="activity-item"><div class="a-icon green">✓</div><div class="a-text"><strong>Post published</strong> — "Consistency beats perfection" on X</div><div class="a-time">Yesterday</div></div>
+          <div class="activity-item"><div class="a-icon blue">📊</div><div class="a-text"><strong>Analytics milestone</strong> — Reached 90K total reach this month</div><div class="a-time">Yesterday</div></div>
+          <div class="activity-item"><div class="a-icon green">✓</div><div class="a-text"><strong>Post published</strong> — "AutoPost product update" on LinkedIn + Facebook</div><div class="a-time">2 days ago</div></div>
         </div>
       </div>
     </div>
@@ -2441,6 +2590,11 @@ function doRegister(e) {
 }
 
 function setUser(name, email) {
+  const el = document.getElementById('d-welcome-name');
+  const hr = new Date().getHours();
+  const greet = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
+  if (el) el.textContent = greet + ', ' + name.split(' ')[0] + '! 👋';
+
   const init = name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
   document.getElementById('d-name').textContent  = name;
   document.getElementById('d-email').textContent = email;
