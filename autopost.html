@@ -1242,9 +1242,10 @@ footer {
   /* Navbar */
   .navbar { padding: 0 1rem; gap: 0; }
   .nav-center { display: none; }
+  .nav-right { margin-left: auto; }
   .nav-right .btn-ghost,
   .nav-right .btn-green { display: none; }
-  .hamburger { display: flex; margin-left: auto; }
+  .hamburger { display: flex; }
 
   /* Sections */
   section { padding: 3rem 1.1rem; }
@@ -1507,7 +1508,23 @@ footer {
     <a class="logo" onclick="go('landing')">
       <div class="logo-mark">
         <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/>
+          <!-- head -->
+          <circle cx="13.5" cy="4.5" r="1.2" fill="white"/>
+          <!-- beak -->
+          <circle cx="15.6" cy="3.7" r="0.65" fill="white"/>
+          <!-- body -->
+          <circle cx="10" cy="7" r="1.45" fill="white"/>
+          <!-- chest -->
+          <circle cx="8" cy="8.6" r="1.0" fill="white"/>
+          <!-- right wing fold -->
+          <circle cx="12.5" cy="6" r="0.85" fill="white"/>
+          <!-- left wing -->
+          <circle cx="7" cy="5.4" r="1.0" fill="white"/>
+          <circle cx="4.6" cy="4.9" r="0.85" fill="white"/>
+          <circle cx="2.5" cy="6" r="0.7" fill="white"/>
+          <!-- tail -->
+          <circle cx="6" cy="10.6" r="0.85" fill="white"/>
+          <circle cx="7.5" cy="12.2" r="0.65" fill="white"/>
         </svg>
       </div>
       <span class="logo-text">Auto<span>Post</span></span>
@@ -1842,16 +1859,24 @@ footer {
       <div>
         <div class="logo" style="cursor:default">
           <div class="logo-mark" style="width:30px;height:30px">
-            <svg viewBox="0 0 18 18" fill="none"><path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/></svg>
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="13.5" cy="4.5" r="1.2" fill="white"/><circle cx="15.6" cy="3.7" r="0.65" fill="white"/><circle cx="10" cy="7" r="1.45" fill="white"/><circle cx="8" cy="8.6" r="1.0" fill="white"/><circle cx="12.5" cy="6" r="0.85" fill="white"/><circle cx="7" cy="5.4" r="1.0" fill="white"/><circle cx="4.6" cy="4.9" r="0.85" fill="white"/><circle cx="2.5" cy="6" r="0.7" fill="white"/><circle cx="6" cy="10.6" r="0.85" fill="white"/><circle cx="7.5" cy="12.2" r="0.65" fill="white"/></svg>
           </div>
           <span class="logo-text">Auto<span>Post</span></span>
         </div>
         <p class="footer-tagline">The smarter way to stay consistent on social. For creators, marketers, and agencies worldwide.</p>
         <div class="social-row">
-          <a class="social-btn">𝕏</a>
-          <a class="social-btn">in</a>
-          <a class="social-btn">▶</a>
-          <a class="social-btn">📸</a>
+          <a class="social-btn" href="#" aria-label="X / Twitter">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a class="social-btn" href="#" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a class="social-btn" href="#" aria-label="YouTube">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.2C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.4.3 4.4s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.3 22.1 12 22.1 12 22.1s4.2 0 6.8-.3c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.4v-2.1C23.3 9.3 23 7 23 7zm-13.5 8.9V8.1l8.1 3.9-8.1 3.9z"/></svg>
+          </a>
+          <a class="social-btn" href="#" aria-label="Instagram">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
         </div>
       </div>
       <div class="footer-col">
@@ -1895,7 +1920,7 @@ footer {
 <div id="page-auth" class="page">
   <nav class="navbar">
     <a class="logo" onclick="go('landing')">
-      <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/></svg></div>
+      <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><circle cx="13.5" cy="4.5" r="1.2" fill="white"/><circle cx="15.6" cy="3.7" r="0.65" fill="white"/><circle cx="10" cy="7" r="1.45" fill="white"/><circle cx="8" cy="8.6" r="1.0" fill="white"/><circle cx="12.5" cy="6" r="0.85" fill="white"/><circle cx="7" cy="5.4" r="1.0" fill="white"/><circle cx="4.6" cy="4.9" r="0.85" fill="white"/><circle cx="2.5" cy="6" r="0.7" fill="white"/><circle cx="6" cy="10.6" r="0.85" fill="white"/><circle cx="7.5" cy="12.2" r="0.65" fill="white"/></svg></div>
       <span class="logo-text">Auto<span>Post</span></span>
     </a>
   </nav>
@@ -1903,7 +1928,7 @@ footer {
     <div class="auth-left">
       <div class="auth-left-inner">
         <div class="logo" style="cursor:default;margin-bottom:2rem">
-          <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/></svg></div>
+          <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><circle cx="13.5" cy="4.5" r="1.2" fill="white"/><circle cx="15.6" cy="3.7" r="0.65" fill="white"/><circle cx="10" cy="7" r="1.45" fill="white"/><circle cx="8" cy="8.6" r="1.0" fill="white"/><circle cx="12.5" cy="6" r="0.85" fill="white"/><circle cx="7" cy="5.4" r="1.0" fill="white"/><circle cx="4.6" cy="4.9" r="0.85" fill="white"/><circle cx="2.5" cy="6" r="0.7" fill="white"/><circle cx="6" cy="10.6" r="0.85" fill="white"/><circle cx="7.5" cy="12.2" r="0.65" fill="white"/></svg></div>
           <span class="logo-text" style="color:var(--white)">Auto<span style="color:var(--green)">Post</span></span>
         </div>
         <h2 class="auth-headline">Your content,<br>on <em>autopilot.</em></h2>
@@ -1965,7 +1990,7 @@ footer {
   <div class="sidebar">
     <div class="sidebar-header">
       <div class="logo" onclick="go('landing')" style="cursor:pointer">
-        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 18 18" fill="none"><path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/></svg></div>
+        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 18 18" fill="none"><circle cx="13.5" cy="4.5" r="1.2" fill="white"/><circle cx="15.6" cy="3.7" r="0.65" fill="white"/><circle cx="10" cy="7" r="1.45" fill="white"/><circle cx="8" cy="8.6" r="1.0" fill="white"/><circle cx="12.5" cy="6" r="0.85" fill="white"/><circle cx="7" cy="5.4" r="1.0" fill="white"/><circle cx="4.6" cy="4.9" r="0.85" fill="white"/><circle cx="2.5" cy="6" r="0.7" fill="white"/><circle cx="6" cy="10.6" r="0.85" fill="white"/><circle cx="7.5" cy="12.2" r="0.65" fill="white"/></svg></div>
         <span class="logo-text" style="font-size:0.95rem">Auto<span>Post</span></span>
       </div>
     </div>
