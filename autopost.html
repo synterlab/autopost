@@ -1671,17 +1671,30 @@ async function sendMagicLink(e) {
   const email = document.getElementById('ml-email').value.trim();
   const btn = document.getElementById('ml-btn');
   const errEl = document.getElementById('ml-err');
+  const resetBtnHtml = '<span class="ml-btn-inner">Send magic link <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>';
   errEl.textContent = '';
   btn.disabled = true;
   btn.innerHTML = '<span class="ml-btn-inner"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 0.8s linear infinite"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Sending...</span>';
   const { error } = await _sb.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: 'https://autopost.auction' }
+    options: { emailRedirectTo: window.location.origin }
   });
   if (error) {
-    errEl.textContent = error.message;
-    btn.disabled = false;
-    btn.innerHTML = '<span class="ml-btn-inner">Send magic link <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>';
+    const friendly = friendlyAuthError(error.message);
+    errEl.textContent = friendly;
+    const isRateLimit = error.message && (error.message.toLowerCase().includes('rate') || error.message.toLowerCase().includes('limit') || error.message.toLowerCase().includes('too many'));
+    if (isRateLimit) {
+      let s = 60;
+      btn.innerHTML = '<span class="ml-btn-inner">Try again in ' + s + 's</span>';
+      const iv = setInterval(() => {
+        s--;
+        if (s <= 0) { clearInterval(iv); btn.disabled = false; btn.innerHTML = resetBtnHtml; }
+        else { btn.innerHTML = '<span class="ml-btn-inner">Try again in ' + s + 's</span>'; }
+      }, 1000);
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = resetBtnHtml;
+    }
     return;
   }
   document.getElementById('ml-sent-to').textContent = email;
@@ -1698,6 +1711,36 @@ function resetMagicLink() {
   document.getElementById('ml-err').textContent = '';
 }
 
+function startCooldown(btnEl, innerEl, seconds, label) {
+  let remaining = seconds;
+  innerEl.textContent = 'Try again in ' + remaining + 's';
+  const iv = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(iv);
+      btnEl.disabled = false;
+      innerEl.textContent = label;
+    } else {
+      innerEl.textContent = 'Try again in ' + remaining + 's';
+    }
+  }, 1000);
+}
+
+function friendlyAuthError(msg) {
+  if (!msg) return 'Something went wrong. Please try again.';
+  const m = msg.toLowerCase();
+  if (m.includes('rate') || m.includes('limit') || m.includes('too many')) {
+    return 'Too many requests — please wait a minute before trying again.';
+  }
+  if (m.includes('invalid email') || m.includes('unable to validate')) {
+    return 'Please enter a valid email address.';
+  }
+  if (m.includes('network') || m.includes('fetch')) {
+    return 'Connection error — check your internet and try again.';
+  }
+  return msg;
+}
+
 async function sendHeroMagicLink(e) {
   e.preventDefault();
   const email = document.getElementById('hero-email').value.trim();
@@ -1709,12 +1752,18 @@ async function sendHeroMagicLink(e) {
   inner.textContent = 'Sending...';
   const { error } = await _sb.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: 'https://autopost.auction' }
+    options: { emailRedirectTo: window.location.origin }
   });
   if (error) {
-    errEl.textContent = error.message;
-    btn.disabled = false;
-    inner.textContent = 'Get started free';
+    const friendly = friendlyAuthError(error.message);
+    errEl.textContent = friendly;
+    const isRateLimit = error.message && (error.message.toLowerCase().includes('rate') || error.message.toLowerCase().includes('limit') || error.message.toLowerCase().includes('too many'));
+    if (isRateLimit) {
+      startCooldown(btn, inner, 60, 'Get started free');
+    } else {
+      btn.disabled = false;
+      inner.textContent = 'Get started free';
+    }
     return;
   }
   document.getElementById('hero-form').style.display = 'none';
