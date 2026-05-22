@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Deep green background -->
+  <rect width="1200" height="630" fill="#014D2B"/>
+
+  <!-- Subtle dot grid -->
+  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="2" cy="2" r="1.5" fill="rgba(5,206,120,0.18)"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <!-- Green glow blob top-right -->
+  <ellipse cx="1050" cy="120" rx="300" ry="180" fill="rgba(5,206,120,0.12)"/>
+
+  <!-- Logo mark -->
+  <rect x="72" y="90" width="92" height="92" rx="20" fill="#05CE78"/>
+  <path d="M119 102L89 148H107L100 182L131 136H113L119 102Z" fill="white"/>
+
+  <!-- AutoPost wordmark -->
+  <text x="184" y="158" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="800" font-size="64" letter-spacing="-2" fill="white">Auto<tspan fill="#05CE78">Post</tspan></text>
+
+  <!-- Headline -->
+  <text x="72" y="290" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="800" font-size="88" letter-spacing="-3" fill="white">Post less.</text>
+  <text x="72" y="390" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="400" font-size="88" letter-spacing="-3" fill="#05CE78" font-style="italic">Grow more.</text>
+
+  <!-- Description -->
+  <text x="72" y="470" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="400" font-size="30" fill="rgba(255,255,255,0.65)">Schedule to 8 platforms. AI-powered timing. Real analytics.</text>
+
+  <!-- Divider -->
+  <line x1="72" y1="530" x2="500" y2="530" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+  <!-- URL + stats -->
+  <text x="72" y="575" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="600" font-size="26" fill="rgba(255,255,255,0.5)">autopost.auction</text>
+
+  <!-- Stats row right side -->
+  <text x="900" y="290" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="800" font-size="52" fill="white" text-anchor="middle">10K+</text>
+  <text x="900" y="330" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="500" font-size="22" fill="rgba(255,255,255,0.5)" text-anchor="middle">Active creators</text>
+
+  <text x="1100" y="290" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="800" font-size="52" fill="white" text-anchor="middle">2M+</text>
+  <text x="1100" y="330" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="500" font-size="22" fill="rgba(255,255,255,0.5)" text-anchor="middle">Posts scheduled</text>
+
+  <text x="900" y="420" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="800" font-size="52" fill="white" text-anchor="middle">8</text>
+  <text x="900" y="460" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="500" font-size="22" fill="rgba(255,255,255,0.5)" text-anchor="middle">Platforms</text>
+
+  <text x="1100" y="420" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="800" font-size="52" fill="white" text-anchor="middle">98%</text>
+  <text x="1100" y="460" font-family="-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',sans-serif" font-weight="500" font-size="22" fill="rgba(255,255,255,0.5)" text-anchor="middle">Satisfaction</text>
+</svg>
