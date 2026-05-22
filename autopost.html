@@ -1180,6 +1180,13 @@ footer {
 }
 .date-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(5,206,120,0.12); }
 
+/* Table scroll wrapper */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-scroll table { min-width: 480px; }
+
+/* Analytics top bar */
+.analytics-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+
 /* Bottom nav (mobile) */
 .bottom-nav {
   display: none; position: fixed; bottom: 0; left: 0; right: 0;
@@ -1388,6 +1395,13 @@ footer {
   }
   .modal-actions { flex-direction: column; gap: 0.5rem; }
   .modal-actions .btn { width: 100%; justify-content: center; }
+
+  /* Analytics top — stack header and date chips */
+  .analytics-top { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+
+  /* Full calendar cells — shorter on mobile */
+  .fcal-day { min-height: 48px; padding: 0.35rem; }
+  .fcal-dl { padding: 0.4rem 0.2rem; font-size: 0.65rem; }
 }
 
 /* ─── SMALL PHONES 480px ────────────────────────── */
@@ -1471,9 +1485,7 @@ footer {
     <a class="logo" onclick="go('landing')">
       <div class="logo-mark">
         <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 9L9 3L15 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M9 3V15" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <path d="M5 13H13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/>
         </svg>
       </div>
       <span class="logo-text">Auto<span>Post</span></span>
@@ -1808,7 +1820,7 @@ footer {
       <div>
         <div class="logo" style="cursor:default">
           <div class="logo-mark" style="width:30px;height:30px">
-            <svg viewBox="0 0 18 18" fill="none"><path d="M3 9L9 3L15 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 3V15" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M5 13H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 18 18" fill="none"><path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/></svg>
           </div>
           <span class="logo-text">Auto<span>Post</span></span>
         </div>
@@ -1861,7 +1873,7 @@ footer {
 <div id="page-auth" class="page">
   <nav class="navbar">
     <a class="logo" onclick="go('landing')">
-      <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M3 9L9 3L15 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 3V15" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M5 13H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/></svg></div>
       <span class="logo-text">Auto<span>Post</span></span>
     </a>
   </nav>
@@ -1869,7 +1881,7 @@ footer {
     <div class="auth-left">
       <div class="auth-left-inner">
         <div class="logo" style="cursor:default;margin-bottom:2rem">
-          <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M3 9L9 3L15 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 3V15" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M5 13H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/></svg></div>
           <span class="logo-text" style="color:var(--white)">Auto<span style="color:var(--green)">Post</span></span>
         </div>
         <h2 class="auth-headline">Your content,<br>on <em>autopilot.</em></h2>
@@ -1931,7 +1943,7 @@ footer {
   <div class="sidebar">
     <div class="sidebar-header">
       <div class="logo" onclick="go('landing')" style="cursor:pointer">
-        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 18 18" fill="none"><path d="M3 9L9 3L15 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 3V15" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M5 13H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 18 18" fill="none"><path d="M10.5 2L4 11H9L6.5 16L14 7H9L10.5 2Z" fill="white"/></svg></div>
         <span class="logo-text" style="font-size:0.95rem">Auto<span>Post</span></span>
       </div>
     </div>
@@ -2050,7 +2062,7 @@ footer {
 
     <!-- ANALYTICS -->
     <div id="ds-analytics" class="page-body dsec" style="display:none">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+      <div class="analytics-top">
         <h3 style="font-weight:800;font-size:1rem;letter-spacing:-0.01em">Analytics overview</h3>
         <div class="date-row" style="margin-bottom:0">
           <div class="d-chip on" onclick="activeChip(this)">7 days</div>
@@ -2069,6 +2081,7 @@ footer {
       </div>
       <div class="card">
         <div class="card-head"><span class="card-title">Top performing posts</span></div>
+        <div class="table-scroll">
         <table style="width:100%;border-collapse:collapse">
           <thead><tr>
             <th style="text-align:left;padding:0.6rem 0.5rem;font-size:0.72rem;color:var(--ink-3);font-weight:600;border-bottom:1px solid var(--rule)">Platform</th>
@@ -2082,6 +2095,7 @@ footer {
             <tr><td style="padding:0.6rem 0.5rem;font-size:0.82rem;border-bottom:1px solid var(--rule)">𝕏 Twitter</td><td style="padding:0.6rem 0.5rem;font-size:0.82rem;color:var(--ink-3);border-bottom:1px solid var(--rule)">Consistency beats perfection</td><td style="padding:0.6rem 0.5rem;font-size:0.82rem;text-align:right;border-bottom:1px solid var(--rule)">12.8K</td><td style="padding:0.6rem 0.5rem;font-size:0.82rem;text-align:right;color:var(--green-dark);font-weight:600;border-bottom:1px solid var(--rule)">5.1%</td></tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
 
