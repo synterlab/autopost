@@ -510,7 +510,7 @@ section { padding: 5.5rem 2rem; }
   cursor: default;
 }
 .platform-chip:hover { border-color: var(--green); color: var(--green-dark); background: var(--green-light); }
-.platform-chip span { font-size: 1rem; }
+.platform-chip span { display: flex; flex-shrink: 0; line-height: 1; }
 
 /* ========================
    FEATURES
@@ -1508,23 +1508,8 @@ footer {
     <a class="logo" onclick="go('landing')">
       <div class="logo-mark">
         <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- head -->
-          <circle cx="13.5" cy="4.5" r="1.2" fill="white"/>
-          <!-- beak -->
-          <circle cx="15.6" cy="3.7" r="0.65" fill="white"/>
-          <!-- body -->
-          <circle cx="10" cy="7" r="1.45" fill="white"/>
-          <!-- chest -->
-          <circle cx="8" cy="8.6" r="1.0" fill="white"/>
-          <!-- right wing fold -->
-          <circle cx="12.5" cy="6" r="0.85" fill="white"/>
-          <!-- left wing -->
-          <circle cx="7" cy="5.4" r="1.0" fill="white"/>
-          <circle cx="4.6" cy="4.9" r="0.85" fill="white"/>
-          <circle cx="2.5" cy="6" r="0.7" fill="white"/>
-          <!-- tail -->
-          <circle cx="6" cy="10.6" r="0.85" fill="white"/>
-          <circle cx="7.5" cy="12.2" r="0.65" fill="white"/>
+          <path d="M1.5 3L17 9L1.5 15V10.5L11 9L1.5 7.5V3Z" fill="white"/>
+          <path d="M1.5 10.5L11 9L1.5 7.5" fill="rgba(255,255,255,0.25)"/>
         </svg>
       </div>
       <span class="logo-text">Auto<span>Post</span></span>
@@ -1652,14 +1637,14 @@ footer {
     <div class="container">
       <div class="platform-label">Works with every platform you use</div>
       <div class="platform-row">
-        <div class="platform-chip"><span>📘</span> Facebook</div>
-        <div class="platform-chip"><span>📸</span> Instagram</div>
-        <div class="platform-chip"><span>💼</span> LinkedIn</div>
-        <div class="platform-chip"><span>𝕏</span> X (Twitter)</div>
-        <div class="platform-chip"><span>🎵</span> TikTok</div>
-        <div class="platform-chip"><span>▶️</span> YouTube</div>
-        <div class="platform-chip"><span>📌</span> Pinterest</div>
-        <div class="platform-chip"><span>✈️</span> Telegram</div>
+        <div class="platform-chip"><span><svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#1877F2"/><path d="M9 8.5h1.4l.3-1.8H9V5.9c0-.5.2-.8.8-.8H10.7V3.6C10.3 3.5 9.8 3.5 9.3 3.5 7.9 3.5 7 4.4 7 5.9V6.7H5.5V8.5H7V12.7H9V8.5z" fill="white"/></svg></span> Facebook</div>
+        <div class="platform-chip"><span><svg width="16" height="16" viewBox="0 0 16 16"><defs><linearGradient id="ig1" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#F9A825"/><stop offset="35%" stop-color="#E8445A"/><stop offset="100%" stop-color="#A832C8"/></linearGradient></defs><rect width="16" height="16" rx="4" fill="url(#ig1)"/><rect x="4" y="4" width="8" height="8" rx="2.3" stroke="white" stroke-width="1.3" fill="none"/><circle cx="8" cy="8" r="2" stroke="white" stroke-width="1.3" fill="none"/><circle cx="11.2" cy="4.8" r="0.75" fill="white"/></svg></span> Instagram</div>
+        <div class="platform-chip"><span><svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#0A66C2"/><rect x="3" y="6.5" width="2.2" height="5.8" fill="white"/><circle cx="4.1" cy="4.4" r="1.3" fill="white"/><path d="M8 6.5h1.9V7.4a2.5 2.5 0 0 1 2.1-1.1c1.6 0 2.6 1 2.6 2.9V12H12.4V9.5c0-.8-.4-1.3-1.1-1.3s-1.3.5-1.3 1.4V12H8V6.5z" fill="white"/></svg></span> LinkedIn</div>
+        <div class="platform-chip"><span><svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#000"/><path d="M11.6 3.5h1.7L9.4 7.6l4.4 5.9H10l-2.8-3.7-3.2 3.7H2.3l4.3-4.9L2.4 3.5H6l2.5 3.2 3.1-3.2zm-.6 8.8h.9L5.2 4.4H4.2l6.8 7.9z" fill="white"/></svg></span> X (Twitter)</div>
+        <div class="platform-chip"><span><svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#010101"/><path d="M11.5 4.4a2.8 2.8 0 0 1-2.8-2.8H7.4V9.3a1.4 1.4 0 0 1-1.4 1.4 1.4 1.4 0 0 1-1.4-1.4 1.4 1.4 0 0 1 1.4-1.4h.4V6.1H6c-1.8 0-3.3 1.5-3.3 3.3s1.5 3.3 3.3 3.3 3.3-1.5 3.3-3.3V5.6a5 5 0 0 0 2.9.9V4.8a2.8 2.8 0 0 1-.7-.4z" fill="white"/><path d="M11.5 4.4a2.8 2.8 0 0 1-2.8-2.8H7.4V9.3a1.4 1.4 0 0 1-1.4 1.4 1.4 1.4 0 0 1-1.4-1.4 1.4 1.4 0 0 1 1.4-1.4h.4V6.1H6c-1.8 0-3.3 1.5-3.3 3.3s1.5 3.3 3.3 3.3 3.3-1.5 3.3-3.3V5.6a5 5 0 0 0 2.9.9V4.8a2.8 2.8 0 0 1-.7-.4z" fill="#69C9D0" opacity="0.5"/></svg></span> TikTok</div>
+        <div class="platform-chip"><span><svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#FF0000"/><path d="M13.4 5.4A1.5 1.5 0 0 0 12.3 4.3C11.4 4 8 4 8 4s-3.4 0-4.3.3A1.5 1.5 0 0 0 2.6 5.4 15 15 0 0 0 2.4 8a15 15 0 0 0 .2 2.6A1.5 1.5 0 0 0 3.7 11.7C4.6 12 8 12 8 12s3.4 0 4.3-.3a1.5 1.5 0 0 0 1.1-1.1A15 15 0 0 0 13.6 8a15 15 0 0 0-.2-2.6zm-7.3 4.3V6.3l3.4 1.7-3.4 1.7z" fill="white"/></svg></span> YouTube</div>
+        <div class="platform-chip"><span><svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#E60023"/><path d="M8 1.5a6.5 6.5 0 0 0-2.5 12.5c0-.6 0-1.2.2-1.6l.7-3.1c-.2-.4-.3-.8-.3-1.3 0-1.2.7-2 1.5-2 .7 0 1 .5 1 1.1 0 .7-.4 1.7-.6 2.6-.2 1 .5 1.7 1.3 1.7 1.5 0 2.5-2 2.5-4.4 0-1.8-1.2-3.1-3.2-3.1-2.2 0-3.6 1.6-3.6 3.4 0 .6.2 1.2.5 1.7.1.1.1.2 0 .3l-.2.8c0 .2-.2.3-.4.2C3.7 11 3 9.3 3 7.5 3 4.7 5.1 2 8.9 2c3.1 0 5.1 2.2 5.1 5.2 0 3.6-2 6.3-4.9 6.3-1 0-1.9-.5-2.2-1.1l-.6 2.3c-.2.8-.7 1.8-1 2.4.8.2 1.6.3 2.4.3a6.5 6.5 0 0 0 0-13z" fill="white"/></svg></span> Pinterest</div>
+        <div class="platform-chip"><span><svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#2AABEE"/><path d="M2.5 8.2L13.5 3.5l-3.8 9.5-2.2-4.6L2.5 8.2z" fill="white"/><path d="M7.5 8.4l2.2-2.2" stroke="#2AABEE" stroke-width="1.2" stroke-linecap="round"/></svg></span> Telegram</div>
       </div>
     </div>
   </section>
@@ -1859,7 +1844,7 @@ footer {
       <div>
         <div class="logo" style="cursor:default">
           <div class="logo-mark" style="width:30px;height:30px">
-            <svg viewBox="0 0 18 18" fill="none"><circle cx="13.5" cy="4.5" r="1.2" fill="white"/><circle cx="15.6" cy="3.7" r="0.65" fill="white"/><circle cx="10" cy="7" r="1.45" fill="white"/><circle cx="8" cy="8.6" r="1.0" fill="white"/><circle cx="12.5" cy="6" r="0.85" fill="white"/><circle cx="7" cy="5.4" r="1.0" fill="white"/><circle cx="4.6" cy="4.9" r="0.85" fill="white"/><circle cx="2.5" cy="6" r="0.7" fill="white"/><circle cx="6" cy="10.6" r="0.85" fill="white"/><circle cx="7.5" cy="12.2" r="0.65" fill="white"/></svg>
+            <svg viewBox="0 0 18 18" fill="none"><path d="M1.5 3L17 9L1.5 15V10.5L11 9L1.5 7.5V3Z" fill="white"/><path d="M1.5 10.5L11 9L1.5 7.5" fill="rgba(255,255,255,0.25)"/></svg>
           </div>
           <span class="logo-text">Auto<span>Post</span></span>
         </div>
@@ -1920,7 +1905,7 @@ footer {
 <div id="page-auth" class="page">
   <nav class="navbar">
     <a class="logo" onclick="go('landing')">
-      <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><circle cx="13.5" cy="4.5" r="1.2" fill="white"/><circle cx="15.6" cy="3.7" r="0.65" fill="white"/><circle cx="10" cy="7" r="1.45" fill="white"/><circle cx="8" cy="8.6" r="1.0" fill="white"/><circle cx="12.5" cy="6" r="0.85" fill="white"/><circle cx="7" cy="5.4" r="1.0" fill="white"/><circle cx="4.6" cy="4.9" r="0.85" fill="white"/><circle cx="2.5" cy="6" r="0.7" fill="white"/><circle cx="6" cy="10.6" r="0.85" fill="white"/><circle cx="7.5" cy="12.2" r="0.65" fill="white"/></svg></div>
+      <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M1.5 3L17 9L1.5 15V10.5L11 9L1.5 7.5V3Z" fill="white"/><path d="M1.5 10.5L11 9L1.5 7.5" fill="rgba(255,255,255,0.25)"/></svg></div>
       <span class="logo-text">Auto<span>Post</span></span>
     </a>
   </nav>
@@ -1928,7 +1913,7 @@ footer {
     <div class="auth-left">
       <div class="auth-left-inner">
         <div class="logo" style="cursor:default;margin-bottom:2rem">
-          <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><circle cx="13.5" cy="4.5" r="1.2" fill="white"/><circle cx="15.6" cy="3.7" r="0.65" fill="white"/><circle cx="10" cy="7" r="1.45" fill="white"/><circle cx="8" cy="8.6" r="1.0" fill="white"/><circle cx="12.5" cy="6" r="0.85" fill="white"/><circle cx="7" cy="5.4" r="1.0" fill="white"/><circle cx="4.6" cy="4.9" r="0.85" fill="white"/><circle cx="2.5" cy="6" r="0.7" fill="white"/><circle cx="6" cy="10.6" r="0.85" fill="white"/><circle cx="7.5" cy="12.2" r="0.65" fill="white"/></svg></div>
+          <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M1.5 3L17 9L1.5 15V10.5L11 9L1.5 7.5V3Z" fill="white"/><path d="M1.5 10.5L11 9L1.5 7.5" fill="rgba(255,255,255,0.25)"/></svg></div>
           <span class="logo-text" style="color:var(--white)">Auto<span style="color:var(--green)">Post</span></span>
         </div>
         <h2 class="auth-headline">Your content,<br>on <em>autopilot.</em></h2>
@@ -1990,7 +1975,7 @@ footer {
   <div class="sidebar">
     <div class="sidebar-header">
       <div class="logo" onclick="go('landing')" style="cursor:pointer">
-        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 18 18" fill="none"><circle cx="13.5" cy="4.5" r="1.2" fill="white"/><circle cx="15.6" cy="3.7" r="0.65" fill="white"/><circle cx="10" cy="7" r="1.45" fill="white"/><circle cx="8" cy="8.6" r="1.0" fill="white"/><circle cx="12.5" cy="6" r="0.85" fill="white"/><circle cx="7" cy="5.4" r="1.0" fill="white"/><circle cx="4.6" cy="4.9" r="0.85" fill="white"/><circle cx="2.5" cy="6" r="0.7" fill="white"/><circle cx="6" cy="10.6" r="0.85" fill="white"/><circle cx="7.5" cy="12.2" r="0.65" fill="white"/></svg></div>
+        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 18 18" fill="none"><path d="M1.5 3L17 9L1.5 15V10.5L11 9L1.5 7.5V3Z" fill="white"/><path d="M1.5 10.5L11 9L1.5 7.5" fill="rgba(255,255,255,0.25)"/></svg></div>
         <span class="logo-text" style="font-size:0.95rem">Auto<span>Post</span></span>
       </div>
     </div>
