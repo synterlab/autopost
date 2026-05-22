@@ -1561,9 +1561,15 @@ footer {
   .cta-section { padding: 3rem 0.85rem; }
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
 // ── Supabase magic link auth ────────────────────────
-const _sb = window.supabase.createClient('https://dkeaqooupoohyzdlssnr.supabase.co', 'sb_publishable_DRx-GLoQrO4cHjVYRKZ-WQ_5IMEu4UM');
+// CATATAN: Ganti SUPABASE_ANON_KEY di bawah dengan anon key asli dari
+// Supabase Dashboard → Project Settings → API → anon public (format: eyJ...)
+const SUPABASE_URL = 'https://dkeaqooupoohyzdlssnr.supabase.co';
+const SUPABASE_ANON_KEY = 'GANTI_DENGAN_ANON_KEY_DARI_SUPABASE_DASHBOARD';
+
+const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Handle magic link callback when user returns from email
 _sb.auth.onAuthStateChange((event, session) => {
@@ -1614,7 +1620,6 @@ async function signInWithGoogle() {
   });
   if (error) alert(error.message);
 }
-
 </script>
 </head>
 <body>
