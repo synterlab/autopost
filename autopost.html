@@ -926,6 +926,13 @@ footer {
   min-height: 44px;
 }
 .btn-google:hover { border-color: var(--ink-3); background: var(--surface); }
+.auth-form-back { font-size: 0.8rem; margin-bottom: 1.75rem; }
+.auth-form-back a { color: var(--ink-3); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+.auth-form-back a:hover { color: var(--ink); }
+.magic-sent-wrap { text-align: center; padding: 0.5rem 0; }
+.magic-sent-icon { width: 68px; height: 68px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+.ml-btn-inner { display: flex; align-items: center; justify-content: center; gap: 8px; }
+
 
 /* ========================
    DASHBOARD
@@ -1554,6 +1561,61 @@ footer {
   .cta-section { padding: 3rem 0.85rem; }
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
+// ── Supabase magic link auth ────────────────────────
+const _sb = window.supabase.createClient('https://dkeaqooupoohyzdlssnr.supabase.co', 'sb_publishable_DRx-GLoQrO4cHjVYRKZ-WQ_5IMEu4UM');
+
+// Handle magic link callback when user returns from email
+_sb.auth.onAuthStateChange((event, session) => {
+  if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session) {
+    const u = session.user;
+    const name = u.user_metadata?.full_name || u.user_metadata?.name || u.email.split('@')[0];
+    setUser(name, u.email);
+    go('dashboard');
+  }
+});
+
+async function sendMagicLink(e) {
+  e.preventDefault();
+  const email = document.getElementById('ml-email').value.trim();
+  const btn = document.getElementById('ml-btn');
+  const errEl = document.getElementById('ml-err');
+  errEl.textContent = '';
+  btn.disabled = true;
+  btn.innerHTML = '<span class="ml-btn-inner"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 0.8s linear infinite"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Sending...</span>';
+  const { error } = await _sb.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: 'https://autopost.auction' }
+  });
+  if (error) {
+    errEl.textContent = error.message;
+    btn.disabled = false;
+    btn.innerHTML = '<span class="ml-btn-inner">Send magic link <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>';
+    return;
+  }
+  document.getElementById('ml-sent-to').textContent = email;
+  document.getElementById('fMagicLink').style.display = 'none';
+  document.getElementById('fMagicSent').style.display = 'block';
+}
+
+function resetMagicLink() {
+  document.getElementById('fMagicLink').style.display = '';
+  document.getElementById('fMagicSent').style.display = 'none';
+  const btn = document.getElementById('ml-btn');
+  btn.disabled = false;
+  btn.innerHTML = '<span class="ml-btn-inner">Send magic link <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>';
+  document.getElementById('ml-err').textContent = '';
+}
+
+async function signInWithGoogle() {
+  const { error } = await _sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: 'https://autopost.auction' }
+  });
+  if (error) alert(error.message);
+}
+
+</script>
 </head>
 <body>
 
@@ -1996,41 +2058,43 @@ footer {
     </div>
     <div class="auth-right">
       <div class="auth-form-wrap">
-        <div class="tabs">
-          <button class="tab-btn active" id="tab-a" onclick="authTab('login')">Log in</button>
-          <button class="tab-btn" id="tab-b" onclick="authTab('register')">Sign up</button>
-        </div>
+        <p class="auth-form-back"><a href="#" onclick="go('landing');return false;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to home
+        </a></p>
 
-        <!-- LOGIN -->
-        <form id="fLogin" class="form-stack" onsubmit="doLogin(event)">
-          <div class="field"><label>Email</label><input type="email" id="l-email" placeholder="you@example.com" required></div>
+        <!-- MAGIC LINK FORM -->
+        <form id="fMagicLink" class="form-stack" onsubmit="sendMagicLink(event)">
+          <h1 class="auth-form-title">Sign in to AutoPost</h1>
+          <p class="auth-form-sub">No password needed — enter your email and we'll send you a magic link to sign in instantly.</p>
           <div class="field">
-            <div class="field-row"><label>Password</label><a href="#" class="forgot">Forgot password?</a></div>
-            <input type="password" id="l-pass" placeholder="Your password" required>
+            <label>Email address</label>
+            <input type="email" id="ml-email" placeholder="you@example.com" required autocomplete="email">
           </div>
-          <div class="error-msg" id="l-err"></div>
-          <button type="submit" class="btn btn-green btn-full btn-lg" id="l-btn">Log in</button>
+          <div class="error-msg" id="ml-err"></div>
+          <button type="submit" class="btn btn-green btn-full btn-lg" id="ml-btn">
+            <span class="ml-btn-inner">
+              Send magic link
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </button>
           <div class="or-divider"><span>or continue with</span></div>
-          <button type="button" class="btn-google">
+          <button type="button" class="btn-google" onclick="signInWithGoogle()">
             <svg width="17" height="17" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
             Continue with Google
           </button>
+          <p style="font-size:0.72rem;color:var(--ink-4);text-align:center;margin-top:0.5rem">By continuing you agree to our <a href="#" style="color:var(--ink-3)">Terms</a> &amp; <a href="#" style="color:var(--ink-3)">Privacy Policy</a>.</p>
         </form>
 
-        <!-- REGISTER -->
-        <form id="fReg" class="form-stack" style="display:none" onsubmit="doRegister(event)">
-          <div class="field"><label>Full name</label><input type="text" id="r-name" placeholder="Alex Johnson" required></div>
-          <div class="field"><label>Email</label><input type="email" id="r-email" placeholder="you@example.com" required></div>
-          <div class="field"><label>Password</label><input type="password" id="r-pass" placeholder="At least 8 characters" required minlength="8"></div>
-          <div class="field"><label>Confirm password</label><input type="password" id="r-conf" placeholder="Repeat password" required></div>
-          <div class="error-msg" id="r-err"></div>
-          <button type="submit" class="btn btn-green btn-full btn-lg" id="r-btn">Create account</button>
-          <div class="or-divider"><span>or continue with</span></div>
-          <button type="button" class="btn-google">
-            <svg width="17" height="17" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
-            Continue with Google
-          </button>
-        </form>
+        <!-- EMAIL SENT STATE -->
+        <div id="fMagicSent" style="display:none" class="form-stack magic-sent-wrap">
+          <div class="magic-sent-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#05CE78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h1 class="auth-form-title">Check your inbox</h1>
+          <p class="auth-form-sub">We sent a magic link to <strong id="ml-sent-to"></strong>.<br>Click the link to sign in instantly.</p>
+          <p style="font-size:0.8rem;color:var(--ink-3);margin-top:1.5rem">Didn't receive it? Check your spam folder, or <a href="#" onclick="resetMagicLink();return false;" style="color:var(--green-dark);font-weight:600">try again</a>.</p>
+        </div>
 
       </div>
     </div>
