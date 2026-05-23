@@ -1,3 +1,7 @@
+<a href="https://orynth.dev/projects/autopost" target="_blank" rel="noopener">
+  <img src="https://orynth.dev/api/badge/autopost?theme=light&style=default" alt="Featured on Orynth" width="260" height="80" />
+</a>
+
 # AutoPost
 
 Social media scheduling SaaS web app — built for [autopost.auction](https://autopost.auction)
